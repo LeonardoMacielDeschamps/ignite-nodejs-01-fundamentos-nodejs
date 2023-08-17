@@ -28,7 +28,22 @@ export const routes = [
 
       database.insert('users', user);
 
-      return response.writeHead(201).end();
+      return response.writeHead(201).end(JSON.stringify(user));
+    }
+  },
+  {
+    method: 'PUT',
+    path: buildRoutePath('/users/:id'),
+    handler: (request, response) => {
+      const { id } = request.params;
+      const { name, email } = request.body;
+
+      database.update('users', id, {
+        name,
+        email
+      });
+
+      return response.writeHead(204).end();
     }
   },
   {
